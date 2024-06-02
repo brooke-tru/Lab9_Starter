@@ -95,11 +95,24 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
+
+      class ValidationError extends Error {
+        constructor(message){
+          super(message);
+          this.name = "ValidationError";
+        }
+      }
+
       try{
-        if (!Number.isInteger(firstNum)) {
+        if (!Number.isInteger(Number(firstNum)) || !Number.isInteger(Number(secondNum))) {
           throw new SyntaxError("Syntax Error")
         }
-        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        else if (secondNum == 0 && operator =='/') {
+          throw new ValidationError("Cannot divide by 0")
+        }
+        else {
+          output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        }
       } catch(err) {
         console.error(err.message);
       } finally {
