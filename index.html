@@ -97,9 +97,15 @@
       let operator = document.querySelector('#operator').value;
       try{
         output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        if (!firstNum.isInteger() || !secondNum.isInteger()){
+          throw new SyntaxError('Syntax Error');
+        }
       } catch(err) {
-        console.log('An error occured! Check your inputs')
+        console.error(err.message);
+      } finally {
+        console.log('If you received an error: maybe check your inputs!')
       }
+
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
