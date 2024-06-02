@@ -96,10 +96,10 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
       try{
-        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-        if (!firstNum.isInteger() || !secondNum.isInteger()){
-          throw new SyntaxError('Syntax Error');
+        if (!Number.isInteger(firstNum)) {
+          throw new SyntaxError("Syntax Error")
         }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
       } catch(err) {
         console.error(err.message);
       } finally {
